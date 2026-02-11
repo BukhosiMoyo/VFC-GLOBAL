@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VFC Global Website
+
+A premium, production-ready consultancy website for VFC - Visa Facilitation Consultancy.
+
+## Tech Stack
+
+- **Framework:** Next.js 14+ (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **UI Components:** Custom components inspired by shadcn/ui
+- **Forms:** React Hook Form + Zod
+- **Email:** Resend API
 
 ## Getting Started
 
-First, run the development server:
+### 1. Install Dependencies
+
+```bash
+npm install
+```
+
+### 2. Configure Environment Variables
+
+Create a `.env.local` file in the root directory and add your Resend API key:
+
+```env
+RESEND_API_KEY=re_your_api_key_here
+```
+
+> Note: Without a valid API key, form submissions will be logged to the server console instead of sending emails.
+
+### 3. Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `src/app`: Application routes and pages
+- `src/components`: Reusable UI components
+  - `src/components/ui`: Core design system atoms (Button, Card, Input, etc.)
+  - `src/components/forms`: Complex form components (LeadForm, BookingForm)
+  - `src/components/layout`: Layout components (Navbar, Footer)
+- `src/config`: Centralized configuration (site.ts)
+- `src/lib`: Utilities and helpers (email, utils)
 
-## Learn More
+## Customization
 
-To learn more about Next.js, take a look at the following resources:
+### Content Updates
+To update contact details, navigation links, or service lists, edit `src/config/site.ts`. This centralized file controls content across the site.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Styling
+Global styles and brand colors are defined in `src/app/globals.css`.
+Tailwind configuration is in `tailwind.config.ts`.
