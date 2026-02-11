@@ -62,7 +62,11 @@ export function Footer() {
                 </div>
 
                 <div className="pt-8 border-t border-border/40 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-                    <p>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
+                    <div className="flex flex-col md:flex-row gap-4 items-center md:items-start">
+                        <p>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
+                        <span className="hidden md:inline text-border">|</span>
+                        <p>Registration: 2024/262909/07</p>
+                    </div>
                     <div className="flex gap-6">
                         <Link href="/privacy-policy" className="hover:text-primary transition-colors">Privacy Policy</Link>
                         <Link href="/terms" className="hover:text-primary transition-colors">Terms of Service</Link>
