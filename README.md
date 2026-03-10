@@ -21,13 +21,15 @@ npm install
 
 ### 2. Configure Environment Variables
 
-Create a `.env.local` file in the root directory and add your Resend API key:
+Create a `.env.local` file in the root directory and add your Resend configuration:
 
 ```env
 RESEND_API_KEY=re_your_api_key_here
+RESEND_FROM_EMAIL=VFC Global <noreply@vfcglobal.co.za>
+RESEND_TEAM_EMAILS=info@vfcglobal.co.za,consult@vfcglobal.co.za
 ```
 
-> Note: Without a valid API key, form submissions will be logged to the server console instead of sending emails.
+`RESEND_TEAM_EMAILS` controls where contact and booking requests are delivered. `RESEND_FROM_EMAIL` must use a sender address on a domain verified in Resend.
 
 ### 3. Run Development Server
 
