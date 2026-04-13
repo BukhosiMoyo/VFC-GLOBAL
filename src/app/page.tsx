@@ -110,28 +110,28 @@ export default function Home() {
                 desc: "Work, Study, & Visitor Visas handled with precision.",
                 icon: Briefcase,
                 color: "text-blue-500",
-                href: "/services/visas"
+                href: "/services/visa-applications"
               },
               {
                 title: "Waivers & Appeals",
                 desc: "Overturn rejections and legalize your stay.",
                 icon: ShieldCheck,
                 color: "text-indigo-500",
-                href: "/services/waivers"
+                href: "/services/waivers-appeals"
               },
               {
                 title: "Corporate",
                 desc: "Complete compliance for multinational teams.",
                 icon: Globe2,
                 color: "text-sky-500",
-                href: "/services/corporate"
+                href: "/services/corporate-immigration"
               },
               {
                 title: "Special Services",
                 desc: "Citizenship, fast-tracking & document procurement.",
                 icon: Star,
                 color: "text-teal-500",
-                href: "/services/special"
+                href: "/services/special-services"
               }
             ].map((service, i) => (
               <motion.div

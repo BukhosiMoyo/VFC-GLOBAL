@@ -1,8 +1,14 @@
 import { Resend } from 'resend';
 import { getAdminNotificationTemplate, getCustomerConfirmationTemplate } from './email-templates';
 
-const resend = new Resend(process.env.RESEND_API_KEY || 're_123456789');
 const DEV_SENDER = 'onboarding@resend.dev';
+const DEV_INBOX = 'delivered@resend.dev';
+
+type SubmissionEmailData = {
+    fullName: string;
+    email: string;
+    serviceCategory: string;
+} & Record<string, unknown>;
 
 function getTeamEmails() {
     const configured = process.env.RESEND_TEAM_EMAILS
@@ -27,17 +33,28 @@ function requireResendApiKey() {
     return apiKey;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function sendLeadEmails(data: any) {
+function getResendClient() {
+    return new Resend(requireResendApiKey());
+}
+
+async function sendEmail(payload: Parameters<ReturnType<typeof getResendClient>["emails"]["send"]>[0]) {
+    const response = await getResendClient().emails.send(payload);
+
+    if (response.error) {
+        throw new Error(`${response.error.name}: ${response.error.message}`);
+    }
+
+    return response.data;
+}
+
+export async function sendLeadEmails(data: SubmissionEmailData) {
     const isDev = process.env.NODE_ENV === 'development';
     const from = isDev ? DEV_SENDER : getSenderEmail();
-    const teamEmails = isDev ? ['delivered@resend.dev'] : getTeamEmails();
-
-    requireResendApiKey();
+    const teamEmails = isDev ? [DEV_INBOX] : getTeamEmails();
 
     // 1. Send Admin Notification
     try {
-        await resend.emails.send({
+        await sendEmail({
             from,
             to: teamEmails,
             replyTo: data.email,
@@ -51,9 +68,9 @@ export async function sendLeadEmails(data: any) {
 
     // 2. Send Customer Confirmation
     try {
-        await resend.emails.send({
+        await sendEmail({
             from,
-            to: isDev ? 'delivered@resend.dev' : data.email,
+            to: isDev ? DEV_INBOX : data.email,
             subject: 'We have received your inquiry - VFC Global',
             html: getCustomerConfirmationTemplate(data.fullName, 'Lead'),
         });
@@ -64,17 +81,14 @@ export async function sendLeadEmails(data: any) {
     return { success: true };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function sendBookingEmails(data: any) {
+export async function sendBookingEmails(data: SubmissionEmailData) {
     const isDev = process.env.NODE_ENV === 'development';
     const from = isDev ? DEV_SENDER : getSenderEmail();
-    const teamEmails = isDev ? ['delivered@resend.dev'] : getTeamEmails();
-
-    requireResendApiKey();
+    const teamEmails = isDev ? [DEV_INBOX] : getTeamEmails();
 
     // 1. Send Admin Notification
     try {
-        await resend.emails.send({
+        await sendEmail({
             from,
             to: teamEmails,
             replyTo: data.email,
@@ -88,9 +102,9 @@ export async function sendBookingEmails(data: any) {
 
     // 2. Send Customer Confirmation
     try {
-        await resend.emails.send({
+        await sendEmail({
             from,
-            to: isDev ? 'delivered@resend.dev' : data.email,
+            to: isDev ? DEV_INBOX : data.email,
             subject: 'Consultation Request Received - VFC Global',
             html: getCustomerConfirmationTemplate(data.fullName, 'Booking'),
         });

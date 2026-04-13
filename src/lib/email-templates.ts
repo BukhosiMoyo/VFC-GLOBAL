@@ -9,11 +9,41 @@ export const emailStyles = `
   .button { display: inline-block; background-color: #0F1D2F; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-top: 20px; }
 `;
 
+function escapeHtml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function formatFieldLabel(key: string) {
+  return key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, " $1");
+}
+
+function formatFieldValue(value: unknown) {
+  if (value === null || value === undefined || value === "") {
+    return "N/A";
+  }
+
+  if (typeof value === "boolean") {
+    return value ? "Yes" : "No";
+  }
+
+  if (Array.isArray(value)) {
+    return escapeHtml(value.join(", "));
+  }
+
+  return escapeHtml(String(value)).replaceAll("\n", "<br />");
+}
+
 export function getCustomerConfirmationTemplate(name: string, type: 'Lead' | 'Booking') {
   return `
     <!DOCTYPE html>
     <html>
     <head>
+      <meta charSet="utf-8" />
       <style>${emailStyles}</style>
     </head>
     <body>
@@ -22,7 +52,7 @@ export function getCustomerConfirmationTemplate(name: string, type: 'Lead' | 'Bo
           <h1>Request Received</h1>
         </div>
         <div class="content">
-          <p>Dear ${name},</p>
+          <p>Dear ${escapeHtml(name)},</p>
           <p>Thank you for contacting VFC Global. We have received your ${type === 'Booking' ? 'consultation booking' : 'inquiry'} request.</p>
           <p>Our team is currently reviewing your details and will be in touch shortly to discuss the next steps.</p>
           
@@ -46,8 +76,8 @@ export function getCustomerConfirmationTemplate(name: string, type: 'Lead' | 'Bo
 export function getAdminNotificationTemplate(data: Record<string, unknown>, type: string) {
   const fields = Object.entries(data).map(([key, value]) => `
     <div class="field">
-      <span class="label">${key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}:</span>
-      <span>${String(value) || 'N/A'}</span>
+      <span class="label">${escapeHtml(formatFieldLabel(key))}:</span>
+      <span>${formatFieldValue(value)}</span>
     </div>
   `).join('');
 
@@ -55,15 +85,16 @@ export function getAdminNotificationTemplate(data: Record<string, unknown>, type
     <!DOCTYPE html>
     <html>
     <head>
+      <meta charSet="utf-8" />
       <style>${emailStyles}</style>
     </head>
     <body>
       <div class="container">
         <div class="header">
-          <h1>New ${type} Submission</h1>
+          <h1>New ${escapeHtml(type)} Submission</h1>
         </div>
         <div class="content">
-          <p>A new ${type.toLowerCase()} has been submitted via the website.</p>
+          <p>A new ${escapeHtml(type.toLowerCase())} has been submitted via the website.</p>
           <div style="background: #f9f9f9; padding: 15px; border-radius: 5px;">
             ${fields}
           </div>

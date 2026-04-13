@@ -20,28 +20,28 @@ const serviceCategories = [
         title: "Visa Applications",
         icon: Globe,
         description: "Comprehensive visa solutions for individuals and families.",
-        href: "/services/visas",
+        href: "/services/visa-applications",
         items: ["Work Visas", "Study Visas", "Spousal & Relative Visas", "Tourist & Visitor Visas"]
     },
     {
         title: "Waivers & Appeals",
         icon: Shield,
         description: "Expert legal assistance for complex immigration cases.",
-        href: "/services/waivers",
+        href: "/services/waivers-appeals",
         items: ["Overstay Appeals", "V-List Removal", "Status Rectification", "Good Cause Letters"]
     },
     {
         title: "Corporate Immigration",
         icon: Briefcase,
         description: "Streamlined compliance and visa processing for businesses.",
-        href: "/services/corporate",
+        href: "/services/corporate-immigration",
         items: ["Corporate Accounts", "Compliance Audits", "Transfer of Skills", "General Work Visas"]
     },
     {
         title: "Special Services",
         icon: Star,
         description: "Tailored solutions for unique immigration needs.",
-        href: "/services/special",
+        href: "/services/special-services",
         items: ["Permanent Residence", "Citizenship", "Document Procurement", "Police Clearance"]
     }
 ];

@@ -21,9 +21,9 @@ export function Footer() {
                     <div className="space-y-6">
                         <h3 className="font-semibold text-foreground">Services</h3>
                         <ul className="space-y-3 text-sm">
-                            <li><Link href="/services/visas" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group"><ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" /> Visa Applications</Link></li>
-                            <li><Link href="/services/waivers" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group"><ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" /> Waivers & Appeals</Link></li>
-                            <li><Link href="/services/corporate" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group"><ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" /> Corporate Immigration</Link></li>
+                            <li><Link href="/services/visa-applications" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group"><ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" /> Visa Applications</Link></li>
+                            <li><Link href="/services/waivers-appeals" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group"><ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" /> Waivers & Appeals</Link></li>
+                            <li><Link href="/services/corporate-immigration" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group"><ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" /> Corporate Immigration</Link></li>
                         </ul>
                     </div>
 
